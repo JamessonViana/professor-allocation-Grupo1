@@ -3,6 +3,9 @@ package com.projet.professor.allocation.grupoJava.entity;
 import java.sql.Time;
 import java.time.DayOfWeek;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,7 +18,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Allocation {
-	
+	@JsonProperty(access = Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Long id;

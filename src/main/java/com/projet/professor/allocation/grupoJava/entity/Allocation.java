@@ -23,10 +23,12 @@ public class Allocation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Long id;
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
 	private Professor professor;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
 	private Course course;
@@ -81,6 +83,8 @@ public class Allocation {
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
+	
+	
 
 
 
@@ -128,6 +132,19 @@ public class Allocation {
 
 	public void setEndHour(Time endHour) {
 		this.endHour = endHour;
+	}
+	
+	             
+	public void setProfessorId(Long id) {
+		Professor professor = new Professor();
+		professor.setId(id);
+		this.setProfessor(professor);
+	}
+	
+	public void setCourseId(Long id) {
+		Course course = new Course();
+		course.setId(id);
+		this.setCourse(course);
 	}
 
 

@@ -102,5 +102,18 @@ public class ProfessorController {
 		service.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	@Operation(summary = "Liste os professores pelo Id do departamento")
+	@GetMapping(path = "/department/{department_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Not Found", content = @Content) })
+	public ResponseEntity<List<Professor>> findbyDepartmanet(@RequestParam(name = "departamen_id", required = false) Long id) {
+		List<Professor> professors = service.findByDepartment(id);
+		return new ResponseEntity<>(professors, HttpStatus.OK);
+	}
+	
+ 
+	
 }
-//atualizando
+ 

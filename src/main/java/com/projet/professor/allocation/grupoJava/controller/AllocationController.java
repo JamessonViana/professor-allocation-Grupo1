@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projet.professor.allocation.grupoJava.entity.Allocation;
+import com.projet.professor.allocation.grupoJava.entity.Professor;
 import com.projet.professor.allocation.grupoJava.service.AllocationService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -110,6 +112,27 @@ public class AllocationController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	
+	@Operation(summary = "Liste as alocações pelo Id do curso")
+	@GetMapping(path = "/curse/{curse_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Not Found", content = @Content) })
+	public ResponseEntity<List<Allocation>> findbyCourse(@RequestParam(name = "curse_id", required = false) Long id) {
+		List<Allocation> allocationCourse = service.findByCourse(id);
+		return new ResponseEntity<>(allocationCourse, HttpStatus.OK);
+	}
+	
+	@Operation(summary = "Liste as alocações pelo Id do professor")
+	@GetMapping(path = "/professor/{professor_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Not Found", content = @Content) })
+	public ResponseEntity<List<Allocation>> findbyProfessor(@RequestParam(name = "professor_id", required = false) Long id) {
+		List<Allocation> allocationProfessor = service.findByProfessor(id);
+		return new ResponseEntity<>(allocationProfessor, HttpStatus.OK);
 	}
 	
 	
